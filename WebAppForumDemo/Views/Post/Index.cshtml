@@ -1,0 +1,26 @@
+﻿@model List<Post>
+
+
+<a asp-action="Create" asp-controller="Post">
+    <button type="button" class="btn btn-success">Create Post</button>
+</a>
+<p></p>
+<p></p>
+<p></p>
+
+@foreach (var post in Model)
+{
+    <h5>@post.Title</h5>
+
+    <textarea type="text" class="form-control" id="content" rows="4" readonly>@post.Content</textarea>
+    <br>
+    <a asp-action="Edit" asp-route-id="@post.Id">
+        <button type="button" class="btn btn-warning">Edit</button>
+    </a>
+    <a asp-action="Delete" asp-route-id="@post.Id">
+        <button type="button" class="btn btn-danger">Delete</button>
+    </a>
+
+    <br>
+    <br>
+}
