@@ -6,7 +6,7 @@ using WebAppForumDemo.Models;
 
 namespace WebAppForumDemo.Services
 {
-    public class PostService
+    public class PostService : IPostService
     {
         public List<Post> GetAll()
         {
@@ -18,11 +18,16 @@ namespace WebAppForumDemo.Services
             return Data.Posts.FirstOrDefault(p => p.Id == id);
         }
 
-        public Post Create(string title, string content)
+        public List<Post> GetAllByTopicId(int topicId)
         {
-            Post post = new Post(title, content);
+            return Data.Posts.FindAll(p => p.TopicId == topicId);
+        }
 
-            Data.Posts.Add(post);           
+        public Post Create(int topicId, string title, string content)
+        {
+            Post post = new Post(topicId, title, content);
+
+            Data.Posts.Add(post);            
 
             return post;
         }
@@ -39,8 +44,8 @@ namespace WebAppForumDemo.Services
         public Post Delete(int id)
         {
             Post post = GetById(id);
-            Data.Posts.Remove(post);                    
-                    
+            Data.Posts.Remove(post);
+
             return post;
         }
     }

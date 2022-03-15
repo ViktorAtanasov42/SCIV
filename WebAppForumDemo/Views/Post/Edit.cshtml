@@ -10,7 +10,7 @@
         <textarea type="text" class="form-control" name="content" id="content" rows="4">@Model.Content</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Edit</button>
-    <button asp-action="Index" class="btn btn-secondary">Cancel</button>
+    <button asp-action="Index" class="btn btn-secondary" asp-route-id=@Model.TopicId>Cancel</button>
 </form>
 
 

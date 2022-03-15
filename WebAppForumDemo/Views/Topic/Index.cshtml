@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebAppForumDemo.Models.Topic>
+
+<div class="text-center">
+    <h1 class="display-4">SCIV Topics</h1>
+</div>
+<br>
+<br>
+<br>
+   @foreach (var topic in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <img src=@topic.ImageLink style="height:10%" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a asp-action="Index" asp-controller="Post" asp-route-id="@topic.Id">
+                        <button class="btn btn-primary btn-lg">Explore @topic.Name</button>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    }
+

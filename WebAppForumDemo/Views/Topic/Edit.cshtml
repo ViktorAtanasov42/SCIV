@@ -1,0 +1,14 @@
+﻿@model Topic
+
+<form asp-action="Edit" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Topic name</label>
+        <input type="text" class="form-control" name="name" value="@Model.Name" placeholder="Topic name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Image link</label>
+        <input type="text" class="form-control" name="imageLink" rows="4"value="@Model.ImageLink" placeholder="Image link">
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+    <button asp-action="Index" class="btn btn-secondary" asp-route-id=@Model.Id>Cancel</button>
+</form>

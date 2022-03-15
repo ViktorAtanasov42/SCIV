@@ -1,0 +1,16 @@
+﻿@model Topic
+
+<form asp-action="DeleteConfirm" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label>Topic name</label>
+        <input type="text" class="form-control" value="@Model.Name" disabled>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Image link</label>
+        <input type="text" class="form-control" rows="4" disabled value="@Model.ImageLink">
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <button asp-action="Index" class="btn btn-secondary" asp-route-id=@Model.Id>Cancel</button>   
+</form>
+
+

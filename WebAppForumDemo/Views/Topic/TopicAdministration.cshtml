@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebAppForumDemo.Models.Topic>
+
+<div class="text-center">
+    <h1 class="display-4">SCIV Topics</h1>
+</div>
+<br>
+<br>
+<br>
+
+<div class="d-grid gap-2">
+    <a asp-action="Create" asp-controller="Topic">
+        <button class="btn btn-primary btn-lg" type="button">Create new topic</button>
+    </a>   
+</div>
+
+<br>
+@foreach (var topic in Model)
+{
+    <div class="col">
+        <div class="card">
+            <img src=@topic.ImageLink style="height:10%" class="card-img-top" alt="...">
+            <div class="card-body">
+                <a asp-action="Index" asp-controller="Post" asp-route-id="@topic.Id">
+                    <button class="btn btn-primary btn-lg">Explore @topic.Name</button>
+                </a>
+                <a asp-action="Edit" asp-route-id="@topic.Id">
+                    <button type="button" class="btn btn-warning">Edit</button>
+                </a>
+                <a asp-action="Delete" asp-route-id="@topic.Id">
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+

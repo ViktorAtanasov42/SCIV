@@ -9,16 +9,18 @@ namespace WebAppForumDemo.Models
     {
         private static int id = 0;
         private string title;
-        private string content;
+        private string content;        
 
-        public Post(string title, string content)
+        public Post(int topicId, string title, string content)
         {
             Id = ++id;
+            TopicId = topicId;
             Title = title;
             Content = content;
         }
 
         public int Id { get; set; }
+        public int TopicId { get; set; }
 
         public string Title
         {

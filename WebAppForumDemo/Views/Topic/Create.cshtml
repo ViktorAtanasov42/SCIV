@@ -1,0 +1,13 @@
+﻿
+<form asp-action="Create" asp-controller="Topic">
+    <div class="mb-3">
+        <label class="form-label">Topic Name</label>
+        <input type="text" class="form-control" name="name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Topic image link</label>
+        <input type="text" class="form-control" name="imageLink">
+    </div>
+    <button type="submit" class="btn btn-primary">Create topic</button>
+    <button asp-action="Index" class="btn btn-secondary">Cancel</button>
+</form>
