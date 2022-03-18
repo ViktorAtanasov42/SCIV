@@ -39,7 +39,7 @@ namespace WebAppForumDemo.Services
         {
             Topic topic = GetById(id);
             Data.Topics.Remove(topic);
-
+            Data.Posts.RemoveAll(p => p.TopicId == id);
             return topic;
         }
 

@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sciv.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebAppForumDemo.Services;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
-using MySqlConnector;
-
 
 namespace SCIV
 {
@@ -28,22 +27,6 @@ namespace SCIV
             services.AddControllersWithViews();
             services.AddScoped<TopicService>();
             services.AddScoped<PostService>();
-            services.AddDbContext<ScivDbContext>(options =>
-            {
-
-            });
-            services.AddIdentity<User, IdentityRole<int>>(options =>
-            {
-                options.User.RequireUniqueEmail = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 1;
-
-            })
-                .AddEntityFrameworkStores<ScivDbContext>()
-                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
