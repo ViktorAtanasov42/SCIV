@@ -13,8 +13,7 @@ namespace WebAppForumDemo.Models
 
        // private static int id;
         private string title;
-        private string content;        
-
+        private string content;
         public Post(int topicId, string title, string content)
         {
             TopicId = topicId;

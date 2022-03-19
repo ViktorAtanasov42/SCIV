@@ -29,7 +29,7 @@ namespace WebAppForumDemo.Services
 
         public List<Post> GetAllByTopicId(int topicId)
         {
-             return Data.Posts.FindAll(p => p.TopicId == topicId);
+            return dbContext.Posts.Where(x => x.TopicId == topicId).ToList();
         }
 
         public Post Create(int topicId, string title, string content)
@@ -54,7 +54,8 @@ namespace WebAppForumDemo.Services
         public Post Delete(int id)
         {
             Post post = GetById(id);
-            Data.Posts.Remove(post);
+            dbContext.Posts.Remove(post);
+            dbContext.SaveChanges();
 
             return post;
         }
