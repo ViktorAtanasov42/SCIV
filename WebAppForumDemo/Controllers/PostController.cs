@@ -12,10 +12,12 @@ namespace WebAppForumDemo.Controllers
     {
         static private int CurrentTopicID;
         private readonly PostService postService;
+        private readonly TopicService topicService;
 
-        public PostController(PostService postService)
+        public PostController(PostService postService, TopicService topicService)
         {
             this.postService = postService;
+            this.topicService = topicService;
         }
 
         [Route("Post")]
@@ -37,7 +39,7 @@ namespace WebAppForumDemo.Controllers
             CurrentTopicID = id;
             List<Post> posts = postService.GetAllByTopicId(id);
 
-            Topic currentTopic = Data.Topics.FirstOrDefault(p => p.Id == id);
+            Topic currentTopic = topicService.GetById(id);
 
             ViewBag.TopicTitle = currentTopic.Name;
             ViewBag.TopicImageLink = currentTopic.ImageLink;

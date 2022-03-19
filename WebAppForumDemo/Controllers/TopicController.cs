@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace WebAppForumDemo.Controllers
         }
 		public ActionResult Index()
         {
-            return View(Data.Topics);
+			List<Topic> topics = topicService.GetAll();
+			return View(topics);
         }
 
         public ActionResult TopicAdministration()
         {
-            return View(Data.Topics);
+			List<Topic> topics = topicService.GetAll();
+			return View(topics);
         }
 
         [HttpGet]
