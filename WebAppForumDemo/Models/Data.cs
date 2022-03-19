@@ -16,7 +16,7 @@ namespace WebAppForumDemo.Models
             Posts = new List<Post>();
 
 			Topics = new List<Topic>
-					 {
+		    {
 				new Topic ("Physics", "https://www.austincc.edu/sites/default/files/sem-physics.jpg"),
 				new Topic ("Chemistry", "https://www.thoughtco.com/thmb/EpsKarnLz-v0VXY0KKnS_fTX5-U=/2121x1414/filters:fill(auto,1)/GettyImages-545286316-433dd345105e4c6ebe4cdd8d2317fdaa.jpg"),
 				new Topic ("Biology", "https://cdn.pixabay.com/photo/2018/07/15/10/44/dna-3539309__480.jpg"),

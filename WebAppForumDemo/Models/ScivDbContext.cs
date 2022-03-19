@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebAppForumDemo.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Sciv.Models
 {
-    public class ScivDbContext : IdentityDbContext<User, IdentityRole<int>, int>
+    public class ScivDbContext : DbContext
     {
         public DbSet<Post> Posts { get; set; }
 
@@ -17,6 +16,12 @@ namespace Sciv.Models
         public ScivDbContext(DbContextOptions options) : base(options)
         {
 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Post>().ToTable("Post");
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Topic>().ToTable("Topic");
         }
     }
 }

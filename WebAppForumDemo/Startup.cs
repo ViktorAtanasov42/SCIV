@@ -27,11 +27,11 @@ namespace WebAppForumDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddDbContext<ScivDbContext>(options =>
             {
-                options.UseMySql("Server=localhost;Database=scivdb;Uid=root;Pwd=viktor;", new MySqlServerVersion(new Version(10, 6, 5)));
+                options.UseMySQL("Server=localhost;Database=scivdb;Uid=root;Pwd=viktor;");
             });
+            services.AddControllersWithViews();
             services.AddIdentity<User, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = false;
@@ -53,6 +53,7 @@ namespace WebAppForumDemo
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

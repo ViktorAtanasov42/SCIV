@@ -1,6 +1,7 @@
 ﻿using Sciv.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,17 +11,18 @@ namespace WebAppForumDemo.Models
     public class Post
     {
 
-        private static int id = 0;
+       // private static int id;
         private string title;
         private string content;        
 
         public Post(int topicId, string title, string content)
         {
-            Id = ++id;
             TopicId = topicId;
             Title = title;
             Content = content;
         }
+
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         [ForeignKey("Topic")]
         public int TopicId { get; set; }
