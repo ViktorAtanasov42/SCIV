@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sciv.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +9,7 @@ namespace WebAppForumDemo.Models
 {
     public class Post
     {
+
         private static int id = 0;
         private string title;
         private string content;        
@@ -18,9 +21,10 @@ namespace WebAppForumDemo.Models
             Title = title;
             Content = content;
         }
-
         public int Id { get; set; }
+        [ForeignKey("Topic")]
         public int TopicId { get; set; }
+       // public User Author { get; set; }
 
         public string Title
         {

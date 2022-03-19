@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sciv.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppForumDemo.Services;
 
-namespace SCIV
+namespace WebAppForumDemo
 {
     public class Startup
     {
@@ -25,8 +28,26 @@ namespace SCIV
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<TopicService>();
+            services.AddDbContext<ScivDbContext>(options =>
+            {
+                options.UseMySql("Server=localhost;Database=scivdb;Uid=root;Pwd=viktor;", new MySqlServerVersion(new Version(10, 6, 5)));
+            });
+            services.AddIdentity<User, IdentityRole<int>>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+
+            })
+                .AddEntityFrameworkStores<ScivDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Services
             services.AddScoped<PostService>();
+            services.AddScoped<TopicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +69,7 @@ namespace SCIV
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -20,7 +20,7 @@ namespace SCIV
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<WebAppForumDemo.Startup>();
                 });
     }
 }
