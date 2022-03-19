@@ -60,7 +60,7 @@ namespace Sciv.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserDTO userDTO)
         {
-            Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(userDTO.Email, userDTO.Password, false, false);
+            Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(userDTO.Username, userDTO.Password, false, false);
 
             if (result.Succeeded)
             {

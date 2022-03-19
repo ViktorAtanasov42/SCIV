@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sciv.Models;
 
-namespace SCIV
+namespace Sciv
 {
     public class Program
     {
