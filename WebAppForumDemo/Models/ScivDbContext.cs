@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebAppForumDemo.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Data.Entity.Migrations;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;    
-
 
 namespace Sciv.Models
 {
@@ -22,6 +18,5 @@ namespace Sciv.Models
 
         }
         
-
     }
 }

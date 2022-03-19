@@ -10,14 +10,12 @@ namespace WebAppForumDemo.Models
 {
     public class Topic
     {
-        private static int id;
         public Topic(string name, string imageLink)
         {
-            Id = id;
             Name = name;
-            ImageLink = imageLink;           
+            ImageLink = imageLink;
         }
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }

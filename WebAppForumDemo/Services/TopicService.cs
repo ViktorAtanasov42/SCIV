@@ -16,7 +16,7 @@ namespace WebAppForumDemo.Services
         }
         public List<Topic> GetAll()
         {
-            return dbContext.Topics.ToList();
+            return dbContext.Topics.ToList(); 
         }
 
         public Topic GetById(int id)
