@@ -34,7 +34,7 @@ namespace Sciv.Controllers
 
             User user = new User();
             user.Email = userDTO.Email;
-            user.UserName = userDTO.Email;
+            user.UserName = userDTO.Username;
             user.FirstName = userDTO.FirstName;
             user.LastName = userDTO.LastName;
 
