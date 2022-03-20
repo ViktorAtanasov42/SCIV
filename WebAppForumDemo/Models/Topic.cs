@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebAppForumDemo.Models
 {
     public class Topic
-    {
+    {        
         public Topic(string name, string imageLink)
         {
             Name = name;

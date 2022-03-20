@@ -12,8 +12,6 @@ namespace WebAppForumDemo.Models
 {
     public class Post
     {
-
-        // private static int id;
         private string title;
         private string content;
         public Post(int topicId, string title, string content)
@@ -25,6 +23,7 @@ namespace WebAppForumDemo.Models
 
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [ForeignKey("Topic")]
         public int TopicId { get; set; }
         // public User Author { get; set; }

@@ -29,7 +29,7 @@ namespace WebAppForumDemo
         {
             services.AddDbContext<ScivDbContext>(options =>
             {
-                options.UseMySQL("Server=localhost;Database=scivdb;Uid=root;Pwd=viktor;");
+                options.UseMySQL("Server=localhost;Database=scivdb;Uid=root;Pwd=1234;");
             });
             services.AddControllersWithViews();
             services.AddIdentity<User, IdentityRole<int>>(options =>

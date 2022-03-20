@@ -10,8 +10,8 @@ namespace Sciv.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<User> userManager;
-        private SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
@@ -29,14 +29,17 @@ namespace Sciv.Controllers
         {
             if (userDTO.Password != userDTO.ConfirmPassword)
             {
+                ViewBag.ErrorMessage = "Password is not confirmed!";
                 return View();
             }
 
-            User user = new User();
-            user.Email = userDTO.Email;
-            user.UserName = userDTO.Username;
-            user.FirstName = userDTO.FirstName;
-            user.LastName = userDTO.LastName;
+            User user = new User
+            {
+                Email = userDTO.Email,
+                UserName = userDTO.Username,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName
+            };
 
             IdentityResult result = await userManager.CreateAsync(user, userDTO.Password);
 

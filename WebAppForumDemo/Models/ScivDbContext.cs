@@ -17,6 +17,8 @@ namespace Sciv.Models
         {
 
         }
+
+        public DbSet<IdentityUserClaim<int>> IdentityUserClaim { get; set; }
         
     }
 }
