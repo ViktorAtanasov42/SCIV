@@ -81,5 +81,21 @@ namespace Sciv.Controllers
             signInManager.SignOutAsync();
             return RedirectToAction(nameof(Index), "Home");
         }
+
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
+        {            
+            return View();
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
     }
 }

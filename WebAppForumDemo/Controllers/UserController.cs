@@ -17,10 +17,12 @@ namespace Sciv.Controllers
         {
             User user = await userManager.GetUserAsync(User);
 
-            UserDTO userDTO = new UserDTO();
-            userDTO.Email = user.Email;
-            userDTO.FirstName = user.FirstName;
-            userDTO.LastName = user.LastName;
+            UserDTO userDTO = new UserDTO
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
 
             return View(userDTO);
         }

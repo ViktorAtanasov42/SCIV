@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Sciv.Models
 {
-    public class ScivDbContext : DbContext
+    public class ScivDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Post> Posts { get; set; }
 
@@ -18,7 +18,7 @@ namespace Sciv.Models
 
         }
 
-        public DbSet<IdentityUserClaim<int>> IdentityUserClaim { get; set; }
+       // public DbSet<IdentityUserClaim<int>> IdentityUserClaim { get; set; }
         
     }
 }
