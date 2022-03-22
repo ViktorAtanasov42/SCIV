@@ -7,7 +7,7 @@ namespace Sciv.Controllers
 {
     public class UserController : Controller
     {
-        private UserManager<User> userManager;
+        private readonly UserManager<User> userManager;
 
         public UserController(UserManager<User> userManager)
         {

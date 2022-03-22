@@ -1,1 +1,20 @@
-﻿<h3>Edit</h3>
+﻿@using Microsoft.AspNetCore.Identity
+@using Sciv.Models
+@model User
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<h3>Edit account</h3>
+<br />
+<form asp-action="Edit" asp-controller="Account">
+    <div class="form-group">
+        <label>First name</label>
+        <input type="text" class="form-control" name="firstName" dirname="firsName" value="@ViewBag.FirstName">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Last name</label>
+        <input type="text" class="form-control" name="lastName" value="@ViewBag.LastName">
+    </div>   
+    <button type="submit" class="btn btn-primary">Edit</button>
+    <button asp-action="Details" class="btn btn-secondary">Cancel</button>
+</form>

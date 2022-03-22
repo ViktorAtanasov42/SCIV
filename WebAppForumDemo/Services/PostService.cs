@@ -17,13 +17,11 @@ namespace WebAppForumDemo.Services
         }
         public List<Post> GetAll()
         {
-            //  return Data.Posts;
             return dbContext.Posts.ToList();
         }
 
         public Post GetById(int id)
         {
-            // return Data.Posts.FirstOrDefault(p => p.Id == id);
             return dbContext.Posts.FirstOrDefault(p => p.Id == id);
         }
 
