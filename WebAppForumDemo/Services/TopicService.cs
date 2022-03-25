@@ -33,10 +33,11 @@ namespace WebAppForumDemo.Services
             return topic;
         }
 
-        public Topic Edit(int id, string name)
+        public Topic Edit(int id, string name, string imageLink)
         {
             Topic topic = GetById(id);
             topic.Name = name;
+            topic.ImageLink = imageLink;
             dbContext.SaveChanges();
             return topic;
         }

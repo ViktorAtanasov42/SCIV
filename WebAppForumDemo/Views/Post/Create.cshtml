@@ -1,5 +1,5 @@
 ﻿
-<form asp-action="Create" asp-controller="Post">
+<form action="/Post/Create" method="post">
     <div class="form-group">
         <label>Title</label>
         <input type="text" class="form-control" name="title" placeholder="Post Title">
@@ -8,6 +8,7 @@
         <label class="form-label">Post</label>
         <textarea type="text" class="form-control" name="content" placeholder="Post Content" id="content" rows="4"></textarea>
     </div>
+    <input type="hidden" name="topicID" value="@ViewBag.CurrentTopicID" />
     <button type="submit" class="btn btn-primary">Create Post</button>
     <button asp-action="Index" class="btn btn-secondary" asp-route-id=@ViewBag.CurrentTopicID>Cancel</button>
 </form>

@@ -13,12 +13,11 @@ namespace Sciv.Models
 
         public DbSet<Topic> Topics { get; set; }
 
+        public DbSet<LogHistory> LogHistoryAll { get; set; }
+
         public ScivDbContext(DbContextOptions options) : base(options)
         {
 
         }
-
-       // public DbSet<IdentityUserClaim<int>> IdentityUserClaim { get; set; }
-        
     }
 }

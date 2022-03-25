@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Sciv.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebAppForumDemo.Models;
@@ -13,6 +14,8 @@ namespace Sciv.Tests
         private ScivDbContext context;
         private PostService postService;
         private TopicService topicService;
+        private LogHistoryService logHistoryService;
+
         [SetUp]
         public void Setup()
         {
@@ -35,9 +38,11 @@ namespace Sciv.Tests
         [Test]
         public void TestGetAllPosts()
         {
-            Post post1 = postService.Create(1, "Title1", "Content1");
-            Post post2 = postService.Create(2, "Title2", "Content2");
-            Post post3 = postService.Create(3, "Title3", "Content3");
+            User user = new User();
+
+            Post post1 = postService.Create(1, "Title1", "Content1", user);
+            Post post2 = postService.Create(2, "Title2", "Content2", user);
+            Post post3 = postService.Create(3, "Title3", "Content3", user);
 
             List<Post> posts = postService.GetAll();
 
@@ -48,7 +53,8 @@ namespace Sciv.Tests
         [Test]
         public void TestGetPostById()
         {
-            Post post = postService.Create(1, "Title1", "Content1");
+            User user = new User();
+            Post post = postService.Create(1, "Title1", "Content1", user);
 
             Post dbPost = postService.GetById(1);
 
@@ -58,11 +64,12 @@ namespace Sciv.Tests
         [Test]
         public void TestGetAllPostsByTopicId()
         {
+            User user = new User();
             Topic topic1 = topicService.Create("Tema1", "goo.img");
 
-            Post post1 = postService.Create(1, "Title1", "Content1");
-            Post post2 = postService.Create(1, "Title2", "Content2");
-            Post post3 = postService.Create(1, "Title3", "Content3");
+            Post post1 = postService.Create(1, "Title1", "Content1", user);
+            Post post2 = postService.Create(1, "Title2", "Content2", user);
+            Post post3 = postService.Create(1, "Title3", "Content3", user);
 
             List<Post> posts = postService.GetAllByTopicId(1);
 
@@ -74,7 +81,8 @@ namespace Sciv.Tests
         [Test]
         public void TestCreatePost()
         {
-            Post post = postService.Create(1, "Title1", "Content1");
+            User user = new User();
+            Post post = postService.Create(1, "Title1", "Content1", user);
 
             Post dbPost = context.Posts.FirstOrDefault();
 
@@ -84,7 +92,8 @@ namespace Sciv.Tests
         [Test]
         public void TestEditPost()
         {
-            Post post = postService.Create(1, "Title1", "Content1");
+            User user = new User();
+            Post post = postService.Create(1, "Title1", "Content1", user);
 
             postService.Edit(1, "Title0", "Content0");
 
@@ -94,7 +103,8 @@ namespace Sciv.Tests
         [Test]
         public void TestDeletePost()
         {
-            Post post = postService.Create(1, "Title1", "Content1");
+            User user = new User();
+            Post post = postService.Create(1, "Title1", "Content1", user);
 
             postService.Delete(1);
             List<Post> posts = postService.GetAllByTopicId(1);
@@ -141,7 +151,7 @@ namespace Sciv.Tests
         {
             Topic topic = topicService.Create("Topic1", "Goo.img1");
 
-            topicService.Edit(1, "Topic0");
+            topicService.Edit(1, "Topic0", "Goo.img0");
 
             Assert.AreEqual("Topic0", topic.Name);
         }
@@ -156,5 +166,7 @@ namespace Sciv.Tests
 
             Assert.IsEmpty(topics);
         }
+
+        
     }
 }

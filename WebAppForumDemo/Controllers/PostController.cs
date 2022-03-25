@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Sciv.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +13,18 @@ namespace WebAppForumDemo.Controllers
 {
     public class PostController : Controller
     {
-        static private int CurrentTopicID;
+        private static int CurrentTopicID;
         private readonly PostService postService;
         private readonly TopicService topicService;
+        private readonly LogHistoryService logHistoryService;
+        private readonly UserManager<User> userManager;
 
-        public PostController(PostService postService, TopicService topicService)
+        public PostController(PostService postService, TopicService topicService, LogHistoryService logHistoryService, UserManager<User> userManager)
         {
             this.postService = postService;
             this.topicService = topicService;
+            this.logHistoryService = logHistoryService;
+            this.userManager = userManager;
         }
 
         [Route("Post")]
@@ -32,35 +39,19 @@ namespace WebAppForumDemo.Controllers
             return View(posts);
         }
 
-
         [Route("Topic/{id:int}")]
-        public ActionResult Index(int id)
+        public ActionResult IndexPosts(int id)
         {
             CurrentTopicID = id;
             List<Post> posts = postService.GetAllByTopicId(id);
 
-            Topic currentTopic = topicService.GetById(id);
+        	Topic currentTopic = topicService.GetById(id);
 
-            ViewBag.TopicTitle = currentTopic.Name;
-            ViewBag.TopicImageLink = currentTopic.ImageLink;
-            ViewBag.CurrentTopicID = CurrentTopicID;
-            return View(posts);
-        }
-        
-
-        [HttpGet]
-        public ActionResult Create()
-        {
-            ViewBag.CurrentTopicID = CurrentTopicID;
-            return View();
-        }
-         
-        [HttpPost]
-        public ActionResult Create(string title, string content)
-        {
-            postService.Create(CurrentTopicID, title, content);
-
-            return RedirectToAction(nameof(Index), new { id = CurrentTopicID });
+        	ViewBag.TopicTitle = currentTopic.Name;
+        	ViewBag.TopicImageLink = currentTopic.ImageLink;
+        	ViewBag.CurrentTopicID = id;
+        	logHistoryService.Create(currentTopic.Name,"Seen Topic", System.DateTime.Now);
+        	return View(posts);
         }
 
         [HttpGet]
@@ -70,12 +61,38 @@ namespace WebAppForumDemo.Controllers
             return View(post);
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("Post/Create/{id:int}")]
+        public ActionResult Create(int id)
+        {
+            ViewBag.CurrentTopicID = id;
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult Create(int topicID, string title, string content)
+        //{
+        //    postService.Create(topicID, title, content);
+
+        //    return RedirectToAction("IndexPosts", "Topic", new { id = topicID });
+        //}
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAsync(string title, string content, User author)
+        {
+            
+            author = await userManager.GetUserAsync(User);
+            postService.Create(CurrentTopicID, title, content, author);
+
+            return RedirectToAction(nameof(IndexPosts), new { id = CurrentTopicID });
+        }
+
         [HttpPost]
         public ActionResult Edit(int id, string title, string content)
         {
-            postService.Edit(id, title, content);
-
-            return RedirectToAction(nameof(Index), new { id = CurrentTopicID });
+            Post post = postService.Edit(id, title, content);
+            return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
         }
 
         [HttpGet]
@@ -88,10 +105,11 @@ namespace WebAppForumDemo.Controllers
         [HttpPost]
         public ActionResult DeleteConfirm(int id)
         {
+            Post post = postService.GetById(id);
             postService.Delete(id);
-
-            return RedirectToAction(nameof(Index), new { id = CurrentTopicID });
+            return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
         }
+
 
     }
 }

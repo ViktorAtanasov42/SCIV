@@ -1,6 +1,7 @@
 ﻿using Sciv.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sciv.Controllers
 {
@@ -24,12 +26,14 @@ namespace Sciv.Controllers
             this.dbContext = dbContext;
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {
             if (userDTO.Password != userDTO.ConfirmPassword)
@@ -81,9 +85,9 @@ namespace Sciv.Controllers
         }
 
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return RedirectToAction(nameof(Index), "Home");
         }
 

@@ -7,7 +7,7 @@ namespace WebAppForumDemo.Services
     {
         Topic Create(string name, string imageLink);
         Topic Delete(int id);
-        Topic Edit(int id, string name);
+        Topic Edit(int id, string name, string imageLink);
         List<Topic> GetAll();
         Topic GetById(int id);
         List<Post> GetAllPostsByTopicId(int id);

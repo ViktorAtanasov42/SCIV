@@ -30,9 +30,11 @@ namespace WebAppForumDemo.Services
             return dbContext.Posts.Where(x => x.TopicId == topicId).ToList();
         }
 
-        public Post Create(int topicId, string title, string content)
+        public Post Create(int topicId, string title, string content, User author)
         {
             Post post = new Post(topicId, title, content);
+            post.Author = author;
+            post.AuthorName = author.UserName;
 
             dbContext.Posts.Add(post);
             dbContext.SaveChanges();        

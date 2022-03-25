@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Sciv.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +17,23 @@ namespace WebAppForumDemo.Controllers
     {
 
         private readonly TopicService topicService;
+		private readonly PostService postService;
+		private readonly LogHistoryService logHistoryService;
 
-        public TopicController(TopicService topicService)
+		public TopicController(PostService postService, TopicService topicService, LogHistoryService logHistoryService)
         {
 			this.topicService = topicService;
-        }
+			this.postService = postService;
+			this.logHistoryService = logHistoryService;
+		}
+
 		public ActionResult Index()
         {
 			List<Topic> topics = topicService.GetAll();
+			logHistoryService.Create("Topic", "Viewed All Topics", System.DateTime.Now);
 			return View(topics);
         }
-
+		[Authorize]
         public ActionResult TopicAdministration()
         {
 			List<Topic> topics = topicService.GetAll();
@@ -37,13 +47,21 @@ namespace WebAppForumDemo.Controllers
 			return View(topic);
 		}
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
+		//[Route("Topic/{id:int}")]
+		//public ActionResult IndexPosts(int id)
+		//{
+		//	List<Post> posts = postService.GetAllByTopicId(id);
 
-        [HttpPost]
+		//	Topic currentTopic = topicService.GetById(id);
+
+		//	ViewBag.TopicTitle = currentTopic.Name;
+		//	ViewBag.TopicImageLink = currentTopic.ImageLink;
+		//	ViewBag.CurrentTopicID = id;
+		//	logHistoryService.Create(currentTopic.Name,"Seen Topic", System.DateTime.Now);
+		//	return View(posts);
+		//}
+
+		[HttpPost]
         public ActionResult Create(string name, string imagelink)
         {
             topicService.Create(name, imagelink);
@@ -51,7 +69,13 @@ namespace WebAppForumDemo.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
+		[HttpGet]
+		public ActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpGet]
 		public ActionResult Edit(int id)
 		{
 			Topic topic = topicService.GetById(id);
@@ -59,10 +83,9 @@ namespace WebAppForumDemo.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Edit(int id, string name)
+		public ActionResult Edit(int id, string name, string imageLink)
 		{
-			topicService.Edit(id, name);
-
+			topicService.Edit(id, name, imageLink);
 			return RedirectToAction(nameof(Index));
 		}
 

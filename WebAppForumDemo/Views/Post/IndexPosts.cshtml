@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Sciv.Models
+@using WebAppForumDemo.Models
+@inject UserManager<User> UserManager
+@model List<Post>
+
+@if (@ViewBag.CurrentTopicID > 0)
+{
+    <img src=@ViewBag.TopicImageLink alt="Alternate Text" width="120" height="80" />
+    <h3>@ViewBag.TopicTitle</h3>
+    <br>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Create" asp-controller="Post" asp-route-id="@ViewBag.CurrentTopicID">
+            <button type="button" class="btn btn-success">Create Post</button>
+        </a>
+        <p></p>
+    }
+    <p></p>
+    <p></p>
+
+    @foreach (var post in Model)
+    {
+        <h5>@post.Title</h5>
+        <h6>Written by @post.AuthorName</h6>
+
+        <textarea type="text" class="form-control" id="content" rows="4" readonly>@post.Content</textarea>
+        <br>
+        @if (User.Identity.Name == post.AuthorName)
+        {
+            <a asp-action="Edit" asp-route-id="@post.Id">
+                <button type="button" class="btn btn-warning">Edit</button>
+            </a>
+            <a asp-action="Delete" asp-route-id="@post.Id">
+                <button type="button" class="btn btn-danger">Delete</button>
+            </a>
+
+            <br>
+            <br>
+            <br>
+        }
+        <br />
+    }
+}
+else
+{
+    <div style="text-align: center;">
+        <h2>Invalid action</h2>
+        <h2>Go to Home page</h2>
+    </div>
+    
+}

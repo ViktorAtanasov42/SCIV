@@ -29,7 +29,16 @@ namespace WebAppForumDemo
         {
             services.AddDbContext<ScivDbContext>(options =>
             {
-                options.UseMySQL("Server=localhost;Database=scivdb;Uid=root;Pwd=1234;");
+                var dbDriver = Configuration.GetSection("Env").GetValue<String>("DbDriver", "");
+                var connection = Configuration.GetConnectionString("DefaultConnection");
+
+                if (dbDriver == "Postgres")
+                {
+                    options.UseNpgsql(connection);
+                } else
+                {
+                    options.UseMySQL(connection);
+                }
             });
             services.AddControllersWithViews();
             services.AddIdentity<User, IdentityRole<int>>(options =>
@@ -48,6 +57,8 @@ namespace WebAppForumDemo
             // Services
             services.AddScoped<PostService>();
             services.AddScoped<TopicService>();
+            services.AddScoped<LogHistoryService>();
+            services.AddHttpContextAccessor();
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
@@ -72,6 +83,7 @@ namespace WebAppForumDemo
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

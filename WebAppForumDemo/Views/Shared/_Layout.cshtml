@@ -16,31 +16,25 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="float:left;">
+                    <ul class="navbar-nav flex-grow-1" style="float:left;">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Topic" asp-action="Index">Topics</a>
+                            <a class="nav-link text-dark" asp-controller="Topic" asp-action="Index">Topics</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Topic" asp-action="TopicAdministration">Topics Administration</a>
+                            <a class="nav-link text-dark" asp-controller="Topic" asp-action="TopicAdministration">Topics Administration</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Details">Account</a>
-                        </li>
+                         <partial name="LoginPartial" />
                     </ul>
-                    <partial name="LoginPartial" />
+                    @if (User.Identity.IsAuthenticated){
+                        <div class="nav-item nav-link" style="color:red; float:right;">Hello @User.Identity.Name!</div>
+                    }
                 </div>
             </div>
         </nav>
