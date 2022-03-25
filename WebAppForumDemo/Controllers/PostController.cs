@@ -55,6 +55,7 @@ namespace WebAppForumDemo.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Edit(int id)
         {
             Post post = postService.GetById(id);
@@ -89,13 +90,20 @@ namespace WebAppForumDemo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string title, string content)
+        [Authorize]
+        public async Task<ActionResult> EditAsync(int id, string title, string content)
         {
-            Post post = postService.Edit(id, title, content);
+            var currentUser = await userManager.GetUserAsync(User);
+            Post post = postService.GetById(id);
+            if (currentUser.Id == post.Author.Id)
+            {
+                post = postService.Edit(id, title, content);
+            }
             return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Post post = postService.GetById(id);
@@ -103,13 +111,17 @@ namespace WebAppForumDemo.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteConfirm(int id)
+        [Authorize]
+        public async Task<ActionResult> DeleteConfirmAsync(int id)
         {
+           var currentUser = await userManager.GetUserAsync(User);
             Post post = postService.GetById(id);
-            postService.Delete(id);
+            if (currentUser.Id == post.Author.Id)
+            {
+                postService.Delete(id);
+            }
             return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
+
         }
-
-
     }
 }
