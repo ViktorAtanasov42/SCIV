@@ -10,6 +10,6 @@
     </div>
     <input type="hidden" name="topicID" value="@ViewBag.CurrentTopicID" />
     <button type="submit" class="btn btn-primary">Create Post</button>
-    <button asp-action="Index" class="btn btn-secondary" asp-route-id=@ViewBag.CurrentTopicID>Cancel</button>
+    <a href="/Topic/@ViewBag.CurrentTopicID" class="btn btn-secondary">Cancel</a>
 </form>
 

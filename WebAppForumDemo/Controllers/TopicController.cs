@@ -65,8 +65,8 @@ namespace WebAppForumDemo.Controllers
         public ActionResult Create(string name, string imagelink)
         {
             topicService.Create(name, imagelink);
-
-            return RedirectToAction(nameof(Index));
+			logHistoryService.Create(name, "Created Topic", System.DateTime.Now);
+			return RedirectToAction(nameof(Index));
         }
 
 		[HttpGet]
@@ -86,6 +86,7 @@ namespace WebAppForumDemo.Controllers
 		public ActionResult Edit(int id, string name, string imageLink)
 		{
 			topicService.Edit(id, name, imageLink);
+			logHistoryService.Create(name, "Edited Topic", System.DateTime.Now);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -100,7 +101,7 @@ namespace WebAppForumDemo.Controllers
 		public ActionResult DeleteConfirm(int id)
 		{
 			topicService.Delete(id);
-
+			logHistoryService.Create("Invalid Topic", "Deleted Topic", System.DateTime.Now);
 			return RedirectToAction(nameof(Index));
 		}
 

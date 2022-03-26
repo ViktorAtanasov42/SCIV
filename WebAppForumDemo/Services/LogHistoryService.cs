@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace WebAppForumDemo.Services
 {
-    public class LogHistoryService : ILogHistory
+    public class LogHistoryService : ILogHistoryService
     {
         private ScivDbContext dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;

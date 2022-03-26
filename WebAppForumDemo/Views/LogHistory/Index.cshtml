@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Sciv.Models
+@using WebAppForumDemo.Models
+@inject UserManager<User> UserManager
+@model List<LogHistory>
+
+   <table class="table" id="logtable">
+       <thead>
+           <tr>
+               <th>User</th>
+               <th>Page</th>
+               <th>Action</th>
+               <th>Date</th>
+           </tr>
+       </thead>
+       <tbody>
+           @foreach (var log in Model){
+               
+           <tr>
+               <td>@log.Page</td>
+               <td>@log.Action</td>
+               <td>@log.ActionDate</td>
+           </tr>
+             
+           }
+
+       </tbody>
+   </table>
+
+ <script>$(document).ready(function () {
+    $.noConflict();
+    var table = $('#logtable').DataTable();
+});</script>

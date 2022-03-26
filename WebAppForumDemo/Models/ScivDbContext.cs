@@ -15,7 +15,7 @@ namespace Sciv.Models
 
         public DbSet<LogHistory> LogHistoryAll { get; set; }
 
-        public ScivDbContext(DbContextOptions options) : base(options)
+        public ScivDbContext(DbContextOptions<ScivDbContext> options) : base(options)
         {
 
         }

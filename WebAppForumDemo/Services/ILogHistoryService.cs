@@ -3,7 +3,7 @@ using WebAppForumDemo.Models;
 
 namespace WebAppForumDemo.Services
 {
-    public interface ILogHistory
+    public interface ILogHistoryService
     {
         LogHistory Create(string Page, string Action, System.DateTime ActionDate);
         List<LogHistory> GetAll();

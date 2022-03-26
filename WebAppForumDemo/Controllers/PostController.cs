@@ -85,7 +85,7 @@ namespace WebAppForumDemo.Controllers
             
             author = await userManager.GetUserAsync(User);
             postService.Create(CurrentTopicID, title, content, author);
-
+            logHistoryService.Create("Post", "Created Post", System.DateTime.Now);
             return RedirectToAction(nameof(IndexPosts), new { id = CurrentTopicID });
         }
 
@@ -99,6 +99,7 @@ namespace WebAppForumDemo.Controllers
             {
                 post = postService.Edit(id, title, content);
             }
+            logHistoryService.Create("Post", "Edited Post", System.DateTime.Now);
             return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
         }
 
@@ -120,6 +121,7 @@ namespace WebAppForumDemo.Controllers
             {
                 postService.Delete(id);
             }
+            logHistoryService.Create("Post", "Deleted Post", System.DateTime.Now);
             return RedirectToAction(nameof(IndexPosts), new { id = post.TopicId });
 
         }

@@ -36,6 +36,7 @@ namespace Sciv.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {
+            
             if (userDTO.Password != userDTO.ConfirmPassword)
             {
                 ViewBag.ErrorMessage = "Password is not confirmed!";

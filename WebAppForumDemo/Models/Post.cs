@@ -23,7 +23,6 @@ namespace WebAppForumDemo.Models
         public int Id { get; set; }
         [ForeignKey("Topic")]
         public int TopicId { get; set; }
-
         [ForeignKey("User")]
         public User Author { get; set; }
 
