@@ -31,7 +31,7 @@ namespace Sciv.Controllers
             ClaimsPrincipal user = _httpContextAccessor.HttpContext?.User;
                 Claim claim = user.FindFirst(ClaimTypes.NameIdentifier);
            int userId = int.Parse(claim.Value);
-            return View(logs.Where(x => x.UserId == userId).OrderByDescending(x => x.ActionDate).ToList());
+            return View(logs.Where(x => x.UserId == userId).OrderByDescending(x => x.ActionDate).ToList());         
         }
         
         [HttpPost]
